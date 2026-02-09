@@ -20,7 +20,7 @@ class CAGNN(nn.Module):
     def __init__(self, opt, dimension_to_idx, cliques_num) -> None:
         super(CAGNN, self).__init__()
         self.opt = opt
-        self.dimension_nums = opt.agent_nums
+        self.dimension_nums = opt.dim_nums
         self.dimension_to_idx = dimension_to_idx
         self.intra_gcn = SimpleGCNLayer(opt.embedding_dim, opt.embedding_dim)
         self.inter_gcn = SimpleGCNLayer(opt.embedding_dim, opt.embedding_dim)

@@ -18,8 +18,8 @@ class CEGP(nn.Module):
         self.common_shared_model = CNN(embedding_dim, opt).cuda()
         self.represent_model = CAGNN(opt, self.dimension_to_idx, len(self.dimension_map)).cuda()
         
-        self.dimensions_embedding = nn.Embedding(opt.agent_nums, opt.embedding_dim).cuda()
-        self.dimensions_embed = self.dimensions_embedding(torch.LongTensor([_ for _ in range(opt.agent_nums)]).cuda()).cuda()
+        self.dimensions_embedding = nn.Embedding(opt.dim_nums, opt.embedding_dim).cuda()
+        self.dimensions_embed = self.dimensions_embedding(torch.LongTensor([_ for _ in range(opt.dim_nums)]).cuda()).cuda()
         self.collaborative_expert = CoExpert(opt)
         self.experts = {ke : Expert(opt, embedding_dim + opt.embedding_dim, len(va)) for ke, va in self.dimension_map.items()}
         self.experts_optimizer = optim.Adam((param for expert in self.experts.values() for param in expert.parameters()), lr=opt.lr)
@@ -84,7 +84,7 @@ class CEGP(nn.Module):
 
     def test(self, data):
         expert_true_list, expert_rec_list = {}, {}
-        true_list, rec_list = [[0] * self.opt.agent_nums for _ in range(len(data) * self.opt.batchSize)], [[0] * self.opt.agent_nums for _ in range(len(data) * self.opt.batchSize)]
+        true_list, rec_list = [[0] * self.opt.dim_nums for _ in range(len(data) * self.opt.batchSize)], [[0] * self.opt.dim_nums for _ in range(len(data) * self.opt.batchSize)]
         for ke, one_expert in self.experts.items():
             expert_true_list[ke], expert_rec_list[ke] = [], []
             expert_to_dimension_idx = torch.tensor([self.dimension_to_idx[_] for _ in self.dimension_map[ke]]).cuda()
