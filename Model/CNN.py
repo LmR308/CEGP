@@ -146,7 +146,6 @@ class CNN(nn.Module):
         super(CNN, self).__init__()
         mlp_ratio = float(opt.mlp_ratio)
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=3, kernel_size=opt.Kernel_size1,  stride=opt.Stride1).cuda()
-        self.pool1 = nn.AvgPool2d(kernel_size=2, stride=2).cuda()
         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2).cuda()
         self.conv2 = nn.Conv2d(in_channels=3, out_channels=3, kernel_size=opt.Kernel_size2, stride=opt.Stride2).cuda()
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)

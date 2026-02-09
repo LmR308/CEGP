@@ -10,8 +10,6 @@ class Expert(nn.Module):
         self.fc3 = nn.Linear(50, output_dim).cuda()
 
     def forward(self, input):
-        # out = F.relu(self.fc1(input))
-        # out = F.relu(self.fc2(out))
         out = self.fc1(input)
         out = self.fc2(out)
         out = self.fc3(out)

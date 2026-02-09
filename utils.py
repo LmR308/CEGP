@@ -11,16 +11,13 @@ def k_fold_dataloaders(dataset, k=5, batch_size=32, shuffle=True, seed=42):
     folds = []
 
     for i in range(k):
-        # 划分测试集索引
         if i < k - 1:
             test_idx = indices[i * fold_size:(i + 1) * fold_size]
-        else:  # 最后一折取剩余的所有
+        else:
             test_idx = indices[i * fold_size:]
         
-        # 训练集索引 = 除去测试集
         train_idx = np.setdiff1d(indices, test_idx)
 
-        # 构建 DataLoader
         train_loader = DataLoader(
             Subset(dataset, train_idx.tolist()),
             batch_size=batch_size,

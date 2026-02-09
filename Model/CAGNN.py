@@ -32,6 +32,7 @@ class CAGNN(nn.Module):
         self.intra_adj_list = []
         first_dimension_dict, second_dimension_dict = get_dimension_level_info(self.opt.data_path)
         self.clique_assignments = torch.zeros(self.dimension_nums, dtype=torch.long).cuda()
+        print(f'self.dimension_to_idx is {self.dimension_to_idx.keys()}')
         for idx, va in enumerate(second_dimension_dict.values()):
             indices = [self.dimension_to_idx[name] for name in va]
             self.clique_assignments[indices] = idx

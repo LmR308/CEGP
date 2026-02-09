@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-First, create a result directory to store the results. Then, train the model by running main.py directly. Remember to set the chosen dataset, model backbone and hyper-parameters in the script.Please use the following command to load demo data for testing whether the environment is successfully installed.
+First, create a result directory to store the results(if no results directory exists). Then, train the model by running main.py directly. Remember to set the chosen dataset, model backbone and hyper-parameters in the script.Please use the following command to load demo data for testing whether the environment is successfully installed.
 
 ```python
 python main.py --data_path ./data --res_save_path result
