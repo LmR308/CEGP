@@ -4,6 +4,10 @@ This repository provides a PyTorch implementation of the Collaborative Expert Le
 
 ## Get Started
 
+### Python Version
+
+The Python version used in the project is 3.7.12.
+
 ### Requirements and Installation
 
 The require environments are in **environment.yaml**, you can run below command to install the environment:

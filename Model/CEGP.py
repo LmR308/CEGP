@@ -27,7 +27,6 @@ class CEGP(nn.Module):
 
         self.loss_func1 = FocalLoss(opt.FocalLoss_alpha, opt.FocalLoss_gamma)
         self.loss_func2 = nn.MSELoss()
-        self.loss_func3 = nn.L1Loss()
 
     def evaluate(self, score, label):
         score, label = torch.tensor(score), torch.tensor(label)
@@ -51,8 +50,8 @@ class CEGP(nn.Module):
                 expert_sc = torch.cat((common_dimension_ability, CAGNN_ouput), dim=1).cuda()
                 expert_out = one_expert(expert_sc)
                 expert_labels = torch.index_select(input=labels.cuda(), dim=1, index=expert_to_dimension_idx).cuda()
-                loss1, loss2, loss3 = [_(expert_out, expert_labels) for _ in (self.loss_func1, self.loss_func2, self.loss_func3)]
-                loss = loss1 + loss2 + loss3
+                loss1, loss2 = [_(expert_out, expert_labels) for _ in (self.loss_func1, self.loss_func2)]
+                loss = loss1 + loss2
                 total_loss += loss
             self.experts_optimizer.zero_grad()
             self.opt.log.log_info(f'loss is {loss}')
@@ -68,8 +67,8 @@ class CEGP(nn.Module):
                 expert_sc = torch.cat((common_dimension_ability, CAGNN_ouput), dim=1).cuda()
                 expert_out = one_expert(expert_sc)
                 expert_labels = torch.index_select(input=labels.cuda(), dim=1, index=expert_to_dimension_idx).cuda()
-                loss1, loss2, loss3 = [_(expert_out, expert_labels) for _ in (self.loss_func1, self.loss_func2, self.loss_func3)]
-                loss = loss1 + loss2 + loss3
+                loss1, loss2 = [_(expert_out, expert_labels) for _ in (self.loss_func1, self.loss_func2)]
+                loss = loss1 + loss2
                 t2_loss += loss
             self.comomn_optimizer.zero_grad()
             self.opt.log.log_info(f'loss is {loss}')
